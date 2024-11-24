@@ -1,0 +1,19 @@
+<ng-container *ngIf="array$ | async as array; else noProvidedData">
+@for (item of array ;  track item){
+  <div>
+    {{item}}
+    <div class="buttons">
+      @for (button of buttons$ | async ;  track button){
+        <button
+          [ngClass]="{'button-loading': (button.id + item | IsInArray: actionPerformed())}"
+          (click)="onButtonClicked(button.id, item)"  [disabled]="(button.id + item | IsInArray: actionPerformed())" >
+          {{button.label}}
+        </button>
+      }
+    </div>
+  </div>
+}
+</ng-container>
+<ng-template #noProvidedData>
+  Please provide array of items by providing "ArrayEmitModelDataProvider"
+</ng-template>
